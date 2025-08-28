@@ -17,11 +17,11 @@ jobs:
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.8.0
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ id_ed25519_cd_neira }}
 
       - name: Run Deploy Script
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}               
+          ssh -o StrictHostKeyChecking=no ${{ alumno }}@${{ 137.184.127.11 }}               
           "
             cd ~/lemp-sites/leonardo_neira/servidorvirtual &&
             git pull origin main
