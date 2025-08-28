@@ -9,20 +9,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Descarga el repo (no indispensable, pero buena práctica)
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # 2. Configura SSH con la clave privada guardada en GitHub Secrets
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.9.0
       with:
         ssh-private-key: ${{ secrets.SSH_KEY }}
 
-    # 3. Conecta al servidor y hace git pull
     - name: Deploy to server
       run: |
-        ssh -o StrictHostKeyChecking=alumno@137.184.127.11 '
+        ssh -o StrictHostKeyChecking=no alumno@137.184.127.11 '
           cd ~/lemp-sites/leonardo_neira/servidorvirtual &&
           git pull origin main
         '
