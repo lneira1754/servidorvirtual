@@ -17,7 +17,7 @@ try {
 
     $stmt = $pdo->query("SELECT * FROM alumnos ORDER BY comision, apellido");
 
-    echo "<h1>Listado de Alumnos de la clase</h1>";
+    echo "<h1>Listado de Alumnos</h1>";
     echo "<table border='1' cellpadding='6'>";
     echo "<thead><tr><th>ID</th><th>Comisión</th><th>Apellido</th><th>Nombre</th><th>Email</th></tr></thead>";
     echo "<tbody>";
