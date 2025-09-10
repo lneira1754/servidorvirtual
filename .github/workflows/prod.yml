@@ -1,0 +1,25 @@
+name: Deploy Production
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_KEY }}
+
+    - name: Deploy to Production
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{ secrets.USER_KEY }}@${{ secrets.SERVER_IP }} '
+          cd ~/lemp-sites/leonardo_neira/production &&
+          git pull github-leo main
+        '
