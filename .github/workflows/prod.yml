@@ -1,25 +1,29 @@
-name: Deploy Production
+name: Deploy to Production
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ]  # Se ejecuta solo en pushes a main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+    # 1️⃣ Clona el repositorio en la acción
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    # 2️⃣ Configura el agente SSH con tu clave privada
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.9.0
       with:
-        ssh-private-key: ${{ secrets.SSH_KEY }}
+        ssh-private-key: ${{ secrets.SSH_KEY }}  # tu clave privada
 
-    - name: Deploy to Production
+    # 3️⃣ Ejecuta el despliegue vía SSH
+    - name: Deploy to Production Server
       run: |
         ssh -o StrictHostKeyChecking=no ${{ secrets.USER_KEY }}@${{ secrets.SERVER_IP }} '
           cd ~/lemp-sites/leonardo_neira/production &&
-          git pull github-leo main
+          git fetch github-leo main &&
+          git reset --hard github-leo/main
         '
